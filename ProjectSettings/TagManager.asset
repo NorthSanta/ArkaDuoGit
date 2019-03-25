@@ -8,7 +8,9 @@ TagManager:
   - Ball
   - Block
   - LimitsSide
-  - LimitsTopBot
+  - Ball2
+  - LimitsTop
+  - LimitsBot
   layers:
   - Default
   - TransparentFX

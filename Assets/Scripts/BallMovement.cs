@@ -11,6 +11,9 @@ public class BallMovement : MonoBehaviour {
 
 	public bool _start;
 
+    public Transform _restartPosTop;
+    public Transform _restartPosBot;
+
 	// Use this for initialization
 	void Start () {
 		_rb = GetComponent<Rigidbody2D>();
@@ -27,7 +30,7 @@ public class BallMovement : MonoBehaviour {
 		
 		if (other.gameObject.CompareTag("Bar"))
 		{
-			_speedX = -_speedX;
+			//_speedX = -_speedX;
 			_speedY = -_speedY;				
 		}
 		else if (other.gameObject.CompareTag("LimitsSide"))
@@ -35,12 +38,45 @@ public class BallMovement : MonoBehaviour {
 			_speedX = -_speedX;
 					
 		}
-		if (other.gameObject.CompareTag("LimitsTopBot"))
+        else if (other.gameObject.CompareTag("Ball"))
+        {
+            _speedY = -_speedY;
+        }
+        if (other.gameObject.CompareTag("LimitsBot"))
 		{
-			print("Restart");				
+			print("Restart");
+            GameManager._padBarGoals++;
+            GameManager.Instance.UpdateTexts();
+            RestartPosition(0);
 		}
-			
-	}
+        if (other.gameObject.CompareTag("LimitsTop"))
+        {
+            print("Restart");
+            GameManager._touchBarGoals++;
+            GameManager.Instance.UpdateTexts();
+            RestartPosition(1);
+        }
 
+    }
+
+    public void RestartPosition(int i)
+    {
+        switch (i)
+        {
+            case 0:
+                transform.localPosition = _restartPosBot.localPosition;
+                int rndA = Random.Range(0, 2);
+                _speedX = rndA < 1 ? -100 : 100;
+                _speedY = 100;
+
+                break;
+            case 1:
+                transform.localPosition = _restartPosTop.localPosition;
+                int rndB = Random.Range(0, 2);
+                _speedX = rndB < 1 ? -100 : 100;
+                _speedY = -100;
+                break;
+        }
+    }
 
 }

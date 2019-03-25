@@ -20,8 +20,8 @@ public class Block : MonoBehaviour {
 		if (other.gameObject.CompareTag("Ball"))
 		{
 			other.gameObject.GetComponent<BallMovement>()._speedY = -other.gameObject.GetComponent<BallMovement>()._speedY;
-			//other.gameObject.GetComponent<BallMovement>()._speedX = -other.gameObject.GetComponent<BallMovement>()._speedX;
-			
+            //other.gameObject.GetComponent<BallMovement>()._speedX = -other.gameObject.GetComponent<BallMovement>()._speedX;
+            
 			Destroy(gameObject);
 		}
 	}

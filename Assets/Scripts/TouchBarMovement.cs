@@ -10,6 +10,8 @@ public class TouchBarMovement : MonoBehaviour
 	private bool _firstTime;
 
 	public GameObject _startText;
+
+    public GameObject _padBar;
 	// Use this for initialization
 	void Start () {
 		_rb = GetComponent<Rigidbody2D>();
@@ -20,18 +22,20 @@ public class TouchBarMovement : MonoBehaviour
 	private void LateUpdate()
 	{
 		if(!GameManager._isReady) return;
-		if(Input.GetMouseButtonUp(0) && _firstTime)
-		{
-			_startText.SetActive(false);
-			int rndX = Random.Range(0, 2);
-			transform.GetChild(0).GetComponent<BallMovement>()._speedX = rndX < 1 ? -5 : 5;
-			transform.GetChild(0).GetComponent<BallMovement>()._speedY = 5;
+        if (Input.GetMouseButtonUp(0) && _firstTime)
+        {
+            _startText.SetActive(false);
+            int rndX = Random.Range(0, 2);
+            transform.GetChild(0).GetComponent<BallMovement>()._speedX = rndX < 1 ? -100 : 100;
+            transform.GetChild(0).GetComponent<BallMovement>()._speedY = 100;
+            _padBar.transform.GetChild(0).GetComponent<BallMovement>()._speedX = rndX < 1 ? -100 : 100;
+            _padBar.transform.GetChild(0).GetComponent<BallMovement>()._speedY = -100;
+            _firstTime = false;
+            transform.GetChild(0).SetParent(transform.parent);
+            _padBar.transform.GetChild(0).SetParent(transform.parent);
+        }
 
-			_firstTime = false;
-			transform.GetChild(0).SetParent(transform.parent);
-		}
-		
-		if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0))
 		{
 			if (Input.GetAxis("Mouse X") < 0)
 			{
